@@ -1,0 +1,212 @@
+---
+title: Quick Start
+description: Get started with Treelink by using our configuration tool to create a new site.
+---
+
+import { Tabs, TabItem, FileTree, CardGrid, Code, LinkCard, Steps } from '@astrojs/starlight/components';
+
+To get started, use our [configuration tool](https://treelink.app) to create and customize your new website. Once you've configured your site, click the **Export Config** button to download `site-config.zip`. Unzip the file -- there should be a `siteConfig.json`, a `colorsConfig.txt`, and a `profile-picture.jpg`.
+
+### Prerequisites
+
+- **Node.js** - `v18.17.1` or `v20.3.0` or higher. (`v19` is not supported).
+- **Text Editor** - We recommend [Visual Studio Code](https://code.visualstudio.com/) with the [Astro](https://marketplace.visualstudio.com/items?itemName=astro-build.astro-vscode) extension.
+- **Terminal** - We'll use the terminal to run `git` commands.
+- **Git** - Used to pull and push your project to [GitHub](https://github.com/).
+
+## Download the template
+
+There are a couple ways to download the template. We recommend using GitHub's "Use this template" feature, but you can also clone the repository directly.
+
+### Using GitHub's "Use this template" feature
+<Steps>
+1. Navigate to the repository on GitHub: [https://github.com/trevortylerlee/treelink](https://github.com/trevortylerlee/treelink).
+
+2. Click the "Use this template" button on the top right of the page and select "Create a new repository".
+
+3. Name your repository and click "Create repository from template".
+
+4. Once the repository has been created, you can clone it to your local machine. Click the "Code" button and copy the HTTPS URL to your clipboard. Then, open your terminal and run the following command:
+
+    ```bash
+    git clone https://github.com/your-username/new-repository
+    ```
+
+5. Navigate to the project directory and install the dependencies:
+
+    ```bash
+    cd new-repository
+    npm install
+    ```
+
+4. Replace the `siteConfig.json` file with the one you downloaded from the configuration tool.
+
+5. Copy the content from `colorsConfig.txt` and replace the variables in `src/styles/global.css`.
+
+    ```css title="global.css" {9-39}
+    @tailwind base;
+    @tailwind components;
+    @tailwind utilities;
+
+    @layer base {
+        :root {
+            color-scheme: light dark;
+
+            --light-mode-background: 240 240 240;
+            --light-mode-foreground: 0 0 0;
+            --light-mode-foreground-muted: 50 50 50;
+            --light-mode-icon-link-outline: 50 50 50;
+            --light-mode-icon-link-background: 255 255 255;
+            --light-mode-icon-link-text: 0 0 0;
+            --light-mode-icon-link-outline-hover: 0 0 0;
+            --light-mode-icon-link-background-hover: 240 240 240;
+            --light-mode-icon-link-text-hover: 0 0 0;
+            --light-mode-custom-link-outline: 50 50 50;
+            --light-mode-custom-link-background: 255 255 255;
+            --light-mode-custom-link-text: 0 0 0;
+            --light-mode-custom-link-outline-hover: 0 0 0;
+            --light-mode-custom-link-background-hover: 240 240 240;
+            --light-mode-custom-link-text-hover: 0 0 0;
+
+            --dark-mode-background: 10 10 10;
+            --dark-mode-foreground: 255 255 255;
+            --dark-mode-foreground-muted: 205 205 205;
+            --dark-mode-icon-link-outline: 205 205 205;
+            --dark-mode-icon-link-background: 0 0 0;
+            --dark-mode-icon-link-text: 255 255 255;
+            --dark-mode-icon-link-outline-hover: 255 255 255;
+            --dark-mode-icon-link-background-hover: 50 50 50;
+            --dark-mode-icon-link-text-hover: 255 255 255;
+            --dark-mode-custom-link-outline: 205 205 205;
+            --dark-mode-custom-link-background: 0 0 0;
+            --dark-mode-custom-link-text: 255 255 255;
+            --dark-mode-custom-link-outline-hover: 255 255 255;
+            --dark-mode-custom-link-background-hover: 50 50 50;
+            --dark-mode-custom-link-text-hover: 255 255 255;
+        }
+
+        body {
+            background-color: light-dark(
+            rgb(var(--light-mode-background)),
+            rgb(var(--dark-mode-background))
+            );
+        }
+    }
+
+    ```
+
+6. Replace the `profile-picture.jpg` file in `src/assets/` with the one downloaded from the configuration tool.
+
+7. Start the development server:
+
+    ```bash
+    npm run dev
+    ```
+
+8. Open [http://localhost:4321](http://localhost:4321) in your browser to view your site.
+</Steps>
+
+### Cloning the repository
+
+If you followed the previous section "Using GitHub's "Use this template" feature", you can skip to [deploying your site](/guides/deploy).
+
+<Steps>
+
+1. Clone the repository:
+
+    ```bash
+    git clone https://github.com/trevortylerlee/treelink.git my-project
+    ```
+
+2. Navigate to the project directory:
+
+    ```bash
+    cd my-project
+    ```
+
+3. Install the dependencies:
+
+    ```bash
+    npm install
+    ```
+
+4. Remove the existing remote origin:
+
+    ```bash
+    git remote remove origin
+    ```
+
+5. Create a new repository on GitHub. Do **not** initialize it with any files (i.e. don't add a README, .gitignore, or a license).
+
+6. Add the new repository as a remote origin:
+
+    ```bash
+    git remote add origin https://github.com/your-username/new-repository
+    ```
+
+7. Replace the `siteConfig.json` file with the one you downloaded from the configuration tool.
+
+8. Copy the content from `colorsConfig.txt` and replace the variables in `src/styles/global.css`.
+
+    ```css title="global.css" {9-39}
+    @tailwind base;
+    @tailwind components;
+    @tailwind utilities;
+
+    @layer base {
+        :root {
+            color-scheme: light dark;
+
+            --light-mode-background: 240 240 240;
+            --light-mode-foreground: 0 0 0;
+            --light-mode-foreground-muted: 50 50 50;
+            --light-mode-icon-link-outline: 50 50 50;
+            --light-mode-icon-link-background: 255 255 255;
+            --light-mode-icon-link-text: 0 0 0;
+            --light-mode-icon-link-outline-hover: 0 0 0;
+            --light-mode-icon-link-background-hover: 240 240 240;
+            --light-mode-icon-link-text-hover: 0 0 0;
+            --light-mode-custom-link-outline: 50 50 50;
+            --light-mode-custom-link-background: 255 255 255;
+            --light-mode-custom-link-text: 0 0 0;
+            --light-mode-custom-link-outline-hover: 0 0 0;
+            --light-mode-custom-link-background-hover: 240 240 240;
+            --light-mode-custom-link-text-hover: 0 0 0;
+
+            --dark-mode-background: 10 10 10;
+            --dark-mode-foreground: 255 255 255;
+            --dark-mode-foreground-muted: 205 205 205;
+            --dark-mode-icon-link-outline: 205 205 205;
+            --dark-mode-icon-link-background: 0 0 0;
+            --dark-mode-icon-link-text: 255 255 255;
+            --dark-mode-icon-link-outline-hover: 255 255 255;
+            --dark-mode-icon-link-background-hover: 50 50 50;
+            --dark-mode-icon-link-text-hover: 255 255 255;
+            --dark-mode-custom-link-outline: 205 205 205;
+            --dark-mode-custom-link-background: 0 0 0;
+            --dark-mode-custom-link-text: 255 255 255;
+            --dark-mode-custom-link-outline-hover: 255 255 255;
+            --dark-mode-custom-link-background-hover: 50 50 50;
+            --dark-mode-custom-link-text-hover: 255 255 255;
+        }
+
+        body {
+            background-color: light-dark(
+            rgb(var(--light-mode-background)),
+            rgb(var(--dark-mode-background))
+            );
+        }
+    }
+
+    ```
+
+9. Replace the `profile-picture.jpg` file in `src/assets/` with the one downloaded from the configuration tool.
+
+10. Start the development server:
+
+    ```bash
+    npm run dev
+    ```
+
+11. Open [http://localhost:4321](http://localhost:4321) in your browser to view your site.
+</Steps>
