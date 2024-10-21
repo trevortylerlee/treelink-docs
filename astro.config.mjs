@@ -29,4 +29,5 @@ export default defineConfig({
     }),
     tailwind({ applyBaseStyles: false }),
   ],
+  site: "https://docs.treelink.app",
 });
