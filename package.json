@@ -20,9 +20,11 @@
     "typescript": "^5.6.3"
   },
   "devDependencies": {
-    "prettier": "^3.3.3"
+    "prettier": "2.8.7"
   },
-  "overrides": {
-    "prettier": "3.3.3"
+  "pnpm": {
+    "overrides": {
+      "prettier": "3.3.3"
+    }
   }
 }
