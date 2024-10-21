@@ -5,6 +5,8 @@ description: Get started with Treelink by using our configuration tool to create
 
 import { Tabs, TabItem, FileTree, CardGrid, Code, LinkCard, Steps } from '@astrojs/starlight/components';
 
+[Live example](https://example.treelink.app)
+
 To get started, use our [configuration tool](https://treelink.app) to create and customize your new website. Once you've configured your site, click the **Export Config** button to download `site-config.zip`. Unzip the file -- there should be a `siteConfig.json`, a `colorsConfig.txt`, and a `profile-picture.jpg`.
 
 ### Prerequisites
@@ -39,9 +41,9 @@ There are a couple ways to download the template. We recommend using GitHub's "U
     npm install
     ```
 
-4. Replace the `siteConfig.json` file with the one you downloaded from the configuration tool.
+6. Replace the `siteConfig.json` file with the one you downloaded from the configuration tool.
 
-5. Copy the content from `colorsConfig.txt` and replace the variables in `src/styles/global.css`.
+7. Copy the content from `colorsConfig.txt` and replace the variables in `src/styles/global.css`.
 
     ```css title="global.css" {9-39}
     @tailwind base;
@@ -95,15 +97,52 @@ There are a couple ways to download the template. We recommend using GitHub's "U
 
     ```
 
-6. Replace the `profile-picture.jpg` file in `src/assets/` with the one downloaded from the configuration tool.
+8. Replace the `profile-picture.jpg` file in `src/assets/` with the one downloaded from the configuration tool.
 
-7. Start the development server:
+9. If you plan to use the blog feature, you can create your posts by editing the files inside of `src/content/blog`. Read more on how to author your content in Markdown [here](https://docs.astro.build/en/guides/content/#managing-content-pages). If you aren't using the blog feature, feel free to delete the `blog` directory in `src/content`, delete the `src/pages/blog` directory, and any mentions of the blog content in `src/pages/index.astro`.
+
+    ```astro del={2, 9, 12-15, 22-30}
+    ---
+    import { getCollection, type CollectionEntry } from "astro:content";
+    
+    import { SITE } from "@/siteConfig";
+    
+    import BaseLayout from "@/layouts/BaseLayout.astro";
+    
+    import Content from "@/components/Content.astro";
+    import Post from "@/components/Post.astro";
+    import SeoPage from "@/components/SeoPage.astro";
+    
+    const posts = (await getCollection("blog")).sort(
+      (a: CollectionEntry<"blog">, b: CollectionEntry<"blog">) =>
+        b.data.publicationDate.valueOf() - a.data.publicationDate.valueOf(),
+    );
+    ---
+    
+    <BaseLayout>
+      <SeoPage slot="head" />
+      <main>
+        <Content />
+        {
+          SITE.blog ? (
+            <ul class="grid list-none gap-y-8 px-0 py-12">
+              {posts.map((post: CollectionEntry<"blog">) => (
+                <Post post={post} />
+              ))}
+            </ul>
+          ) : null
+        }
+      </main>
+    </BaseLayout>
+    ```
+
+10. Start the development server:
 
     ```bash
     npm run dev
     ```
 
-8. Open [http://localhost:4321](http://localhost:4321) in your browser to view your site.
+11. Open [http://localhost:4321](http://localhost:4321) in your browser to view your site.
 </Steps>
 
 ### Cloning the repository
@@ -202,11 +241,48 @@ If you followed the previous section "Using GitHub's "Use this template" feature
 
 9. Replace the `profile-picture.jpg` file in `src/assets/` with the one downloaded from the configuration tool.
 
-10. Start the development server:
+10. If you plan to use the blog feature, you can create your posts by editing the files inside of `src/content/blog`. Read more on how to author your content in Markdown [here](https://docs.astro.build/en/guides/content/#managing-content-pages). If you aren't using the blog feature, feel free to delete the `blog` directory in `src/content`, delete the `src/pages/blog` directory, and any mentions of the blog content in `src/pages/index.astro`.
+
+    ```astro del={2, 9, 12-15, 22-30}
+    ---
+    import { getCollection, type CollectionEntry } from "astro:content";
+    
+    import { SITE } from "@/siteConfig";
+    
+    import BaseLayout from "@/layouts/BaseLayout.astro";
+    
+    import Content from "@/components/Content.astro";
+    import Post from "@/components/Post.astro";
+    import SeoPage from "@/components/SeoPage.astro";
+    
+    const posts = (await getCollection("blog")).sort(
+      (a: CollectionEntry<"blog">, b: CollectionEntry<"blog">) =>
+        b.data.publicationDate.valueOf() - a.data.publicationDate.valueOf(),
+    );
+    ---
+    
+    <BaseLayout>
+      <SeoPage slot="head" />
+      <main>
+        <Content />
+        {
+          SITE.blog ? (
+            <ul class="grid list-none gap-y-8 px-0 py-12">
+              {posts.map((post: CollectionEntry<"blog">) => (
+                <Post post={post} />
+              ))}
+            </ul>
+          ) : null
+        }
+      </main>
+    </BaseLayout>
+    ```
+
+11. Start the development server:
 
     ```bash
     npm run dev
     ```
 
-11. Open [http://localhost:4321](http://localhost:4321) in your browser to view your site.
+12. Open [http://localhost:4321](http://localhost:4321) in your browser to view your site.
 </Steps>
