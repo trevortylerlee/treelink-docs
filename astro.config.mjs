@@ -18,6 +18,7 @@ export default defineConfig({
             // Each item here is one entry in the navigation menu.
             { label: "Quick Start", slug: "guides/quick-start" },
             { label: "Deploy Your Site", slug: "guides/deploy" },
+            { label: "Adding Analytics", slug: "guides/analytics" },
           ],
         },
         {
